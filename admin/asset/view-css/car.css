@@ -1,0 +1,86 @@
+.toyota-container{
+    border: none;
+    background-color: #fff;
+    box-shadow: 0px 3px 5px 3px rgba(0, 0, 0, 0.2);
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: 2.5em;
+}
+.form-container{
+    border:none;
+    border-radius: 5px;
+    box-shadow: 0px 3px 5px 3px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2.5em;
+}
+form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1.5em;
+    gap: 1em;
+}
+form input{
+    padding: .5em;
+}
+form textarea{
+    padding: .5em;
+}
+form input[type="submit"]{
+    padding: .5em;
+    border: none;
+    background-color: red;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+form input[type="submit"]:hover{
+    background-color: #000;
+    color: #fff;
+    transition: 0.5s ease-in-out;
+}
+form input[type="submit"]:active{
+    transform: scale(0.98);
+    background-color: red;
+    transition: 0.1s;
+}
+.edit-btn{
+    border: none;
+    padding: .5em;
+    background-color: green;
+    color: #fff;
+    cursor: pointer;
+}
+.edit-btn:hover{
+    background-color: darkgreen;
+    color: #fff;
+    transition: 0.5s ease-in-out;
+}
+.delete-btn{
+    border: none;
+    padding: .5em;
+    background-color: red;
+    color: #fff;
+    cursor: pointer;
+}
+.delete-btn:hover{
+    background-color: darkred;
+    color: #fff;
+    transition: 0.5s ease-in-out;
+}
+.edit-btn:active, .delete-btn:active{
+    transform: scale(0.98);
+    background-color: red;
+    transition: 0.1s;
+}
+i{
+    cursor: pointer;
+    height: .5em;
+    width: 3em;
+    text-align: center;
+}
+@media(max-width: 600px){
+    .form-container{
+        grid-template-columns: 1fr;
+    }
+}

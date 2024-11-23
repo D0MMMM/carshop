@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+}
+body{
+    background-color: none;
+} 
+
+.register{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5em;
+}
+.register form{
+    display: block;
+    width: 100%;
+    max-width: 450px;
+    margin: 20px auto;
+    padding: 15px;
+    border: none;
+}
+
+.register form input{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.register form input[type="submit"]{
+    width: 100%;
+    padding: 10px;  
+    border: 1px solid #ccc;
+    border-radius: 5px;  
+    background-color: red;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.register form input[type="submit"]:hover{
+    background-color: #fff;
+    color: red;
+    border: 1px solid red;
+    transition: all 0.4s ease-in-out;
+}
+.register form input[type="submit"]:active{
+    transform: scale(0.9);
+}
+.register form p{
+    color: #000;
+    text-align: center;
+}
+.register form p a{
+    color: red;
+    border-bottom: 1px solid red;
+}
+.register form p a:hover{
+    color: green;
+    border-bottom: 1px solid green;
+    transition: all 0.4s ease-in-out;
+}
+svg{
+    position: absolute;
+    bottom: 0;
+    z-index: -100;
+}
