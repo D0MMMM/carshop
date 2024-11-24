@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/font-awesome/css/all.css">
     <script src="https://kit.fontawesome.com/bad2460ef5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Document</title>
+    <title>Landing Page nigga</title>
 </head>
 <body>
     <?php include "includes/header.php"?>
