@@ -1,0 +1,31 @@
+.orders-container {
+    padding: 2rem;
+}
+
+.filter-section {
+    margin-bottom: 2rem;
+}
+
+#statusFilter {
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.status-select {
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    width: 100%;
+}
+
+.view-btn {
+    background: none;
+    border: none;
+    color: #e32636;
+    cursor: pointer;
+}
+
+.view-btn:hover {
+    color: #c21d2a;
+}

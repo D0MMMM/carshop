@@ -83,7 +83,6 @@ if(isset($_SESSION['username'])){
     <section class="toyota">
         <div class="toyota-section">
             <?php
-            
             $select_car = mysqli_query($conn, "SELECT * FROM `cars` WHERE make = 'toyota'");
             if(mysqli_num_rows($select_car) > 0){
                 while($fetch_car = mysqli_fetch_assoc($select_car)){

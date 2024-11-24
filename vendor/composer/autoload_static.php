@@ -11,8 +11,14 @@ class ComposerStaticInitb2f2d58b58babaa68789372cb7bafaa0
         array (
             'Win11\\FinalProject\\' => 19,
         ),
+        'S' => 
+        array (
+            'Sample\\' => 7,
+        ),
         'P' => 
         array (
+            'PayPalHttp\\' => 11,
+            'PayPalCheckoutSdk\\' => 18,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
@@ -21,6 +27,18 @@ class ComposerStaticInitb2f2d58b58babaa68789372cb7bafaa0
         'Win11\\FinalProject\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Sample\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/paypal/paypal-checkout-sdk/samples',
+        ),
+        'PayPalHttp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/paypal/paypalhttp/lib/PayPalHttp',
+        ),
+        'PayPalCheckoutSdk\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/paypal/paypal-checkout-sdk/lib/PayPalCheckoutSdk',
         ),
         'PHPMailer\\PHPMailer\\' => 
         array (

@@ -1,18 +1,32 @@
-body {
-    background-color: #f4f4f4;
-    font-family: 'Montserrat', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+}
+
+body {
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 .cart-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    max-width: 1450px;
+    margin:6em auto;
+    padding: 1rem;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 h2 {
@@ -21,46 +35,33 @@ h2 {
     margin-bottom: 2rem;
 }
 
-.cart-item {
-    display: flex;
-    border: 1px solid #ddd;
-    margin-bottom: 1rem;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+table th, table td {
     padding: 1rem;
-    border-radius: 8px;
-    background-color: #fff;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-.cart-item img {
-    width: 200px;
-    height: 150px;
-    object-fit: cover;
-    margin-right: 1rem;
-    border-radius: 8px;
-}
-
-.item-details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.item-details h3 {
-    margin: 0;
-    color: #333;
-}
-
-.price {
-    color: #e32636;
+table th {
+    background-color: #f8f8f8;
     font-weight: bold;
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
+}
+
+table td img {
+    width: 150px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .quantity-container {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
 }
 
 .quantity-btn {
@@ -79,8 +80,8 @@ h2 {
 }
 
 .quantity {
-    color: #666;
-    margin: 0;
+    width: 40px;
+    text-align: center;
 }
 
 .remove-btn {
@@ -90,7 +91,6 @@ h2 {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
-    align-self: flex-start;
     transition: background-color 0.3s ease;
 }
 
@@ -98,19 +98,12 @@ h2 {
     background-color: #c21d2a;
 }
 
-.empty-cart {
-    text-align: center;
-    color: #666;
-    font-size: 1.2rem;
-    margin: 2rem 0;
-}
-
 .total-payment {
     text-align: right;
-    margin-top: 2rem;
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
+    margin-top: 2rem;
 }
 
 .checkout-btn-container {
@@ -131,4 +124,11 @@ h2 {
 
 .checkout-btn:hover {
     background-color: #c21d2a;
+}
+
+.empty-cart {
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+    margin: 2rem 0;
 }
