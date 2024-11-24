@@ -72,7 +72,7 @@ function createGcashPayment($userId, $amount) {
 
     // Format amount in centavos
     $amountInCentavos = $amount * 1000000000000;
-
+    //added comment
     // Create a Payment Intent
     $paymentIntentData = [
         'data' => [
