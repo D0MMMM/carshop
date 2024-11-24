@@ -1,15 +1,18 @@
 <?php
 session_start();
 include '../config/db.php';
-require '../vendor/autoload.php'; // Assuming PayPal SDK is installed via Composer
+require '../vendor/autoload.php'; // Ensure Composer's autoloader is included
 
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
 use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
+use Symfony\Component\Yaml\Yaml;
 
-// PayPal configuration
-$clientId = "AQSCdqJnIy1EXFBj-gVg_sidC7i5jJmt6Sq39lFusFhbfSVkSIosi_Hcw1ZLDo22fa1JpJpjXW3kB16S";
-$clientSecret = "EHycKp78gx9SMF3OprX-HcbtP5Qz4lw7yy5N5iL_3R9tjmYmpupelkDhy4vPMhaUo4LNSoVXj-OKRoA6";
+// Load PayPal credentials from the YAML file
+$config = Yaml::parseFile(__DIR__ . '/../config/config.yml');
+
+$clientId = $config['paypal']['client_id'];
+$clientSecret = $config['paypal']['client_secret'];
 
 // Create PayPal environment
 $environment = new SandboxEnvironment($clientId, $clientSecret);
