@@ -1,0 +1,6 @@
+paypal:
+  client_id: "AQSCdqJnIy1EXFBj-gVg_sidC7i5jJmt6Sq39lFusFhbfSVkSIosi_Hcw1ZLDo22fa1JpJpjXW3kB16S"
+  client_secret: "EHycKp78gx9SMF3OprX-HcbtP5Qz4lw7yy5N5iL_3R9tjmYmpupelkDhy4vPMhaUo4LNSoVXj-OKRoA6"
+
+paymongo:
+  secret_key: "sk_test_b7wawZpk8dgndbxbCdbmm367"

@@ -81,14 +81,17 @@ if(isset($_SESSION['username'])){
         <a href="mitsubishi-dashboard.php">MITSUBISHI</a>
      </div>
     <section class="toyota">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search by car name...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
         <div class="toyota-section">
             <?php
-            
             $select_car = mysqli_query($conn, "SELECT * FROM `cars` WHERE make = 'mitsubishi'");
             if(mysqli_num_rows($select_car) > 0){
                 while($fetch_car = mysqli_fetch_assoc($select_car)){
             ?>
-            <div class="toyota-container">
+            <div class="toyota-container" data-car-name="<?= htmlspecialchars($fetch_car['model']) ?>">
                 <img style="height:15rem; width:23rem" src="../admin/asset/uploaded_img/<?php echo $fetch_car['image_path']; ?>" alt="">
                 <h3><?php echo $fetch_car['model']; ?></h3>
                 <div class="price">₱<?php echo number_format($fetch_car['price'], 2); ?></div>
@@ -117,78 +120,7 @@ if(isset($_SESSION['username'])){
     <?php include '../includes/footer.php';?>
     <script src="../assets/js/modal.js"></script>
     <script src="../assets/js/dashboard.js"></script>
-    <script>
-        window.addEventListener("scroll", function() {
-            var header = document.querySelector("header");
-            header.classList.toggle("sticky", window.scrollY > 0);
-        });
-
-        // Updated modal handling
-        document.querySelectorAll('.view-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const carData = JSON.parse(this.getAttribute('data-car'));
-                
-                // Update modal content
-                document.getElementById('carImage').src = `../admin/asset/uploaded_img/${carData.image_path}`;
-                document.getElementById('carMake').textContent = carData.make;
-                document.getElementById('carModel').textContent = carData.model;
-                document.getElementById('carYear').textContent = carData.year;
-                document.getElementById('carPrice').textContent = `₱${parseFloat(carData.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-                document.getElementById('carCondition').textContent = carData.car_condition;
-                document.getElementById('carDescription').textContent = carData.description;
-                document.getElementById('carIdInput').value = carData.car_id;
-                
-                // Show modal
-                document.getElementById('carModal').style.display = 'block';
-            });
-        });
-
-        document.querySelector('#closeModal').addEventListener('click', function() {
-            document.querySelector('#carModal').style.display = 'none';
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            const modal = document.getElementById('carModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Handle add to cart form submission
-        document.querySelector('.add-to-cart-btn form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-
-            fetch(this.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: data.message
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: data.message
-                    });
-                }
-            })
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'An error occurred while adding the car to the cart.'
-                });
-            });
-        });
-    </script>
+    <script src="../assets/js/mitsubishi_dashboard.js"></script>
 </body>
 </html>
 <?php

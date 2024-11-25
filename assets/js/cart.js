@@ -34,8 +34,8 @@ document.querySelectorAll('.quantity-btn').forEach(button => {
                 // Update item total
                 const itemTotal = price * quantity;
                 itemTotalElement.textContent = `₱${itemTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-                // Update total payment with comma format
-                document.querySelector('.total-payment h3').textContent = `Total Payment: ₱${parseFloat(data.total_payment).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                // Update total payment
+                updateTotalPayment();
             } else {
                 alert('Failed to update quantity');
             }
@@ -45,3 +45,12 @@ document.querySelectorAll('.quantity-btn').forEach(button => {
         });
     });
 });
+
+function updateTotalPayment() {
+    let totalPayment = 0;
+    document.querySelectorAll('.item-total').forEach(itemTotalElement => {
+        const itemTotal = parseFloat(itemTotalElement.textContent.replace('₱', '').replace(/,/g, ''));
+        totalPayment += itemTotal;
+    });
+    document.querySelector('.total-payment h4').textContent = `Total Payment: ₱${totalPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}

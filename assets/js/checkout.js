@@ -11,10 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const stateSelect = document.getElementById('state');
         // Philippines regions
         const regions = [
-            'NCR', 'CAR', 'Region I', 'Region II', 'Region III',
+            'NCR', 'Region I', 'Region II', 'Region III',
             'Region IV-A', 'Region IV-B', 'Region V', 'Region VI',
-            'Region VII', 'Region VIII', 'Region IX', 'Region X',
-            'Region XI', 'Region XII', 'Region XIII', 'BARMM'
+            'Region VII', 'Region VIII'
         ];
         
         regions.forEach(region => {
@@ -69,12 +68,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add total amount to form data
         formData.append('total_amount', total);
 
+        // Format total amount
+        const formattedTotal = formatCurrency(total);
+
         // Show confirmation dialog
         const result = await Swal.fire({
             title: 'Confirm Order',
             html: `
                 <div class="order-confirmation">
-                    <p>Total Amount: ₱${total}</p>
+                    <p>Total Amount: ${formattedTotal}</p>
                     <p>Payment Method: ${paymentMethod.toUpperCase()}</p>
                     <p>Delivery Address:</p>
                     <p>${formData.get('address')}</p>
@@ -202,3 +204,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Function to format currency
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('en-PH', {
+        style: 'currency',
+        currency: 'PHP'
+    }).format(amount);
+}

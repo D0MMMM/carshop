@@ -184,30 +184,3 @@ try {
         window.location.href = '../frontend/cart.php';
     </script>";
 }
-
-// Helper function to make GET requests to PayMongo API
-function paymongoGetRequest($url, $secretKey) {
-    $ch = curl_init();
-
-    curl_setopt($ch, CURLOPT_URL, 'https://api.paymongo.com/v1' . $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-    $headers = [
-        'Content-Type: application/json',
-        'Authorization: Basic ' . base64_encode($secretKey . ':')
-    ];
-
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-    $result = curl_exec($ch);
-    if (curl_errno($ch)) {
-        return [
-            'errors' => [
-                'message' => curl_error($ch)
-            ]
-        ];
-    }
-    curl_close($ch);
-
-    return json_decode($result, true);
-}

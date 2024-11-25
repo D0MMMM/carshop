@@ -48,25 +48,26 @@ header.sticky a svg{
     fill: #000000;
 }
 #logout{
-    position: absolute;
-    right: 1.5em;
-    font-weight: 700;
+    font-weight: normal;
+}
+.dropdown-content a {
+    color: black;
+    padding: 0px 5px;
     text-decoration: none;
-    padding: .3em;
-    text-align: center;
-    color: white;
-
-    /* "to left" / "to right" - affects initial color */
-    background: linear-gradient(to left, red 50%, transparent 25%) right;
+    font-size: 1em;
+    display: block;
+    background: linear-gradient(to left, transparent 50%, black 25%) right;
     background-size: 200%;
     transition: .5s ease-out;
 }
-#logout:hover{
-    /* color: red; */
+.dropdown-content a:hover {
+    /* background-color: #f1f1f1; */
     background-position: left;
+    color: #fff;
 }
-header.sticky #logout{
-    background-color: white;
+header span{
+    font-weight: lighter;
+    text-transform: capitalize;
 }
 .slider{
     height: 100vh;
@@ -227,6 +228,29 @@ header.sticky #logout{
     /* color: red; */
     background-position: left;
 }
+.search-container {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px 40px 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.search-container .fa-magnifying-glass {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000000;
+}
 section{
     position: relative;
     width: 100%;
@@ -337,6 +361,7 @@ section::before{
     background-position: left;
     color: #000000;
 }
+
 
 /* Media Queries for Mobile Responsiveness */
 @media (max-width: 768px) {
