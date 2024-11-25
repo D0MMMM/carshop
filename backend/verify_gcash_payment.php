@@ -1,6 +1,9 @@
 <?php
 session_start();
 include '../config/db.php';
+require '../vendor/autoload.php'; // Ensure Composer's autoloader is included
+
+use Symfony\Component\Yaml\Yaml;
 
 // Suppress error reporting
 error_reporting(0);
@@ -16,8 +19,9 @@ if (!isset($_GET['payment_intent_id'])) {
 
 $paymentIntentId = $_GET['payment_intent_id'];
 
-// PayMongo Secret Key
-$secretKey = 'sk_test_b7wawZpk8dgndbxbCdbmm367'; // Replace with your actual Secret Key
+// Load PayMongo secret key from the YAML file
+$config = Yaml::parseFile(__DIR__ . '/../config/config.yml');
+$secretKey = $config['paymongo']['secret_key'];
 
 // Retrieve the Payment Intent
 $paymentIntent = paymongoGetRequest("/payment_intents/{$paymentIntentId}", $secretKey);

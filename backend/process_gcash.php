@@ -1,10 +1,13 @@
 <?php
 session_start();
 include '../config/db.php';
+require '../vendor/autoload.php'; // Ensure Composer's autoloader is included
 
-// Suppress error reporting
-error_reporting(0);
-ini_set('display_errors', 0);
+use Symfony\Component\Yaml\Yaml;
+
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../frontend/login.php');
@@ -48,8 +51,12 @@ while ($item = $cart_items->fetch_assoc()) {
     $order_items[] = $item;
 }
 
+// Load PayMongo secret key from the YAML file
+$config = Yaml::parseFile(__DIR__ . '/../config/config.yml');
+$secretKey = $config['paymongo']['secret_key'];
+
 // Create GCash payment via PayMongo
-$gcashPayment = createGcashPayment($user_id, $total_amount);
+$gcashPayment = createGcashPayment($user_id, $total_amount, $secretKey);
 
 if ($gcashPayment['status'] === 'success') {
     echo json_encode([
@@ -66,13 +73,10 @@ if ($gcashPayment['status'] === 'success') {
 }
 
 // Function to create GCash payment via PayMongo
-function createGcashPayment($userId, $amount) {
-    // PayMongo Secret Key
-    $secretKey = 'sk_test_b7wawZpk8dgndbxbCdbmm367'; // Replace with your actual Secret Key
-
+function createGcashPayment($userId, $amount, $secretKey) {
     // Format amount in centavos
-    $amountInCentavos = $amount * 1000000000000;
-    //added comment
+    $amountInCentavos = $amount * 100;
+
     // Create a Payment Intent
     $paymentIntentData = [
         'data' => [
@@ -94,7 +98,7 @@ function createGcashPayment($userId, $amount) {
     if (!isset($paymentIntent['data']['id'])) {
         return [
             'status' => 'error',
-            'message' => 'Failed to create Payment Intent.'
+            'message' => 'Network error, please try again later. ' . json_encode($paymentIntent)
         ];
     }
 
@@ -120,7 +124,7 @@ function createGcashPayment($userId, $amount) {
     if (!isset($paymentMethod['data']['id'])) {
         return [
             'status' => 'error',
-            'message' => 'Failed to create Payment Method.'
+            'message' => 'Failed to create Payment Method. ' . json_encode($paymentMethod)
         ];
     }
 
@@ -142,7 +146,7 @@ function createGcashPayment($userId, $amount) {
     if (isset($attachedIntent['errors'])) {
         return [
             'status' => 'error',
-            'message' => 'Failed to attach Payment Method.'
+            'message' => 'Failed to attach Payment Method. ' . json_encode($attachedIntent)
         ];
     }
 
