@@ -1,4 +1,5 @@
 <?php 
+// session_start();
 include "../config/db.php";
 include "../backend/toyota.php";
 
@@ -41,6 +42,24 @@ if(isset($_POST['add_car'])){
     }
 };
 
+if(isset($_GET['delete'])){
+    $delete_id = $_GET['delete'];
+    $delete_query = mysqli_query($conn, "DELETE FROM `cars` WHERE id = '$delete_id'") or die('query failed');
+    if($delete_query){
+        header('location:toyota.php');
+    }else{
+        echo "<script>
+            window.onload = function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Could not delete the product. Please try again.'
+                });
+            };
+        </script>";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,10 +78,9 @@ if(isset($_POST['add_car'])){
     <?php include "../include/sidebar.php"?>
     <main>
         <div class="toyota-container">
-            <span style="margin-right: 1em; font-size: 1.2em"><i class="fa-solid fa-bars"></i></span> <span style="color: red;">TOYOTA</span>
+            <span style=" font-size: 1.2em"><i class="fa-solid fa-bars"></i></span> <span style="color: red;">TOYOTA</span>
             <span style="float: right;">DASHBOARD</span>
         </div>
-
         <div class="form-container">
         <form action="" method="post" enctype="multipart/form-data" id="carForm">
             <input type="text" name="brand" value="<?php echo 'TOYOTA' ?>" readonly required>
@@ -133,6 +151,7 @@ if(isset($_POST['add_car'])){
     $(document).ready( function () {
         $('#toyota-table').DataTable({
             "scrollY": "320px",
+            "pageLength": 5,
             "scrollCollapse": true,
             "paging": true,
         });

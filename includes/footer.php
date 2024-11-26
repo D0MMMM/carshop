@@ -1,5 +1,5 @@
 <footer>
-    <span>Copyright © 2024, All Rights Reserved</span>
+    <span>Copyright ©, All rights reserved.</span>
 
     <div class="social-icons">
         <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>

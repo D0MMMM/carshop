@@ -3,17 +3,17 @@ session_start();
 include "../config/db.php";
 
 
-if(isset($_GET['delete'])){
-    $car_id = $_GET['delete'];
-    $delete_query = mysqli_query($conn, "DELETE FROM `cars` WHERE id = $car_id ") or die('query failed');
-    if($delete_query){
-       header('location:toyota.php');
-       $message[] = 'product has been deleted';
-    }else{
-       header('location:toyota.php');
-       $message[] = 'product could not be deleted';
-    }
- };
+// if(isset($_GET['delete'])){
+//     $car_id = $_GET['delete'];
+//     $delete_query = mysqli_query($conn, "DELETE FROM `cars` WHERE id = $car_id ") or die('query failed');
+//     if($delete_query){
+//        header('location:toyota.php');
+//        $message[] = 'product has been deleted';
+//     }else{
+//        header('location:toyota.php');
+//        $message[] = 'product could not be deleted';
+//     }
+//  };
 
  if(isset($_GET['edit'])){
     $car_id = $_GET['edit'];

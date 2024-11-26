@@ -65,19 +65,51 @@ document.getElementById('search-input').addEventListener('input', function() {
         }
     });
 });
-// document.getElementById('filter-btn').addEventListener('click', function() {
-//     const name = document.getElementById('search-name').value.toLowerCase();
-//     const minPrice = parseFloat(document.getElementById('min-price').value) || 0;
-//     const maxPrice = parseFloat(document.getElementById('max-price').value) || Infinity;
 
-//     document.querySelectorAll('.car-item').forEach(item => {
-//         const itemName = item.getAttribute('data-name').toLowerCase();
-//         const itemPrice = parseFloat(item.getAttribute('data-price'));
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.view-btn');
 
-//         if (itemName.includes(name) && itemPrice >= minPrice && itemPrice <= maxPrice) {
-//             item.style.display = '';
-//         } else {
-//             item.style.display = 'none';
-//         }
-//     });
-// });
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const carData = JSON.parse(this.getAttribute('data-car'));
+            openModal(carData);
+        });
+    });
+
+    const addToCartForm = document.getElementById('add-to-cart-form');
+    addToCartForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        
+        fetch('../backend/add_to_cart.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === 'success') {
+                // Update stock in dashboard
+                const carId = data.car_id;
+                const newStock = data.new_stock;
+                const stockElement = document.getElementById(`stock-${carId}`);
+                stockElement.textContent = `Stock: ${newStock}`;
+
+                // Disable button if out of stock
+                if(newStock === 0){
+                    const viewBtn = document.querySelector(`.toyota-container[data-car-id="${carId}"] .view-btn`);
+                    viewBtn.disabled = true;
+                    viewBtn.textContent = 'OUT OF STOCK';
+                }
+
+                Swal.fire('Success', 'Car added to cart successfully!', 'success');
+                closeModal();
+            } else {
+                Swal.fire('Error', data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('Error', 'An unexpected error occurred.', 'error');
+        });
+    });
+});

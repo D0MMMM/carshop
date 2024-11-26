@@ -47,6 +47,9 @@ header.sticky a{
 header.sticky a svg{
     fill: #000000;
 }
+header.sticky .dropbtn{
+    color: #000000;
+}
 #logout{
     font-weight: normal;
 }
@@ -271,13 +274,13 @@ section::before{
 .toyota .toyota-section{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap:2rem;
+    gap: 1.5rem;
     justify-content: center;
 }
 .toyota-container{
-    border: none;
+    border: 1px solid #ccc;
     padding: 1em;
-    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.3);
+    /* box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.3); */
     /* box-shadow: -1px 9px 23px 2px rgba(0,0,0,0.61) inset;
     -webkit-box-shadow: -1px 9px 23px 2px rgba(0,0,0,0.61) inset;
     -moz-box-shadow: -1px 9px 23px 2px rgba(0,0,0,0.61) inset; */
@@ -361,7 +364,21 @@ section::before{
     background-position: left;
     color: #000000;
 }
-
+.cart-count {
+    /* background-color: red; */
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    position: absolute;
+    z-index: -1;
+    top: 3.2em;
+    left: 19.5em;
+    transform: translate(50%, -50%);
+}
+.cart-count.sticky{
+    color: black;
+}
 
 /* Media Queries for Mobile Responsiveness */
 @media (max-width: 768px) {

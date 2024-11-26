@@ -22,13 +22,45 @@
     padding: 15px;
     border: none;
 }
-.container form input{
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-container input {
     width: 100%;
-    padding: 10px;
+    padding: 10px 40px 10px 40px; /* Adjusted padding for icon */
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px;
+    outline: none;
+    font-size: 16px;
 }
+
+.input-container i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 18px;
+}
+
+.input-container input:focus + i,
+.input-container input:not(:placeholder-shown) + i {
+    color: red;
+}
+
+.input-container .fa-eye,
+.input-container .fa-eye-slash {
+    position: absolute;
+    top: 50%;
+    left: 390px;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 18px;
+    cursor: pointer;
+}
+
 .container form input[type="submit"]{
     width: 100%;
     padding: 10px;  

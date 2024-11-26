@@ -67,8 +67,8 @@ $request->prefer('return=representation');
 $request->body = [
     'intent' => 'CAPTURE',
     'application_context' => [
-        'return_url' => 'https://localhost/final-project/backend/process_paypal_success.php',
-        'cancel_url' => 'https://localhost/final-project/backend/process_paypal_cancel.php'
+        'return_url' => 'http://localhost/final-project/backend/process_paypal_success.php',
+        'cancel_url' => 'http://localhost/final-project/backend/process_paypal_cancel.php'
     ],
     'purchase_units' => [[
         'amount' => [

@@ -1,63 +1,55 @@
 <?php
 session_start();
-include "../config/db.php";
+include '../config/db.php';
+
+header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../frontend/login.php');
+    echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $car_id = isset($_POST['car_id']) ? intval($_POST['car_id']) : 0;
     $user_id = $_SESSION['user_id'];
-    $car_id = isset($_POST['car_id']) ? (int)$_POST['car_id'] : '';
-    
-    // Enhanced debugging
-    error_log("POST data: " . print_r($_POST, true));
-    error_log("User ID: " . $user_id);
-    error_log("Car ID: " . $car_id);
 
-    if (empty($car_id)) {
-        echo json_encode(['status' => 'error', 'message' => 'Car ID is required.']);
+    if ($car_id <= 0) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid car ID']);
         exit();
     }
 
-    try {
-        // Check if the car exists - Fix: Match column name
-        $check_car = $conn->prepare("SELECT id FROM cars WHERE id = ?");
-        $check_car->bind_param("i", $car_id);
-        $check_car->execute();
-        $car_result = $check_car->get_result();
+    // Check stock
+    $stmt = $conn->prepare("SELECT quantity FROM cars WHERE id = ?");
+    $stmt->bind_param("i", $car_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $car = $result->fetch_assoc();
 
-        if ($car_result->num_rows === 0) {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid car selected.']);
-            exit();
-        }
-
-        // Check if car is already in cart
-        $check_cart = $conn->prepare("SELECT cart_id, quantity FROM cart WHERE user_id = ? AND car_id = ?");
-        $check_cart->bind_param("ii", $user_id, $car_id);
-        $check_cart->execute();
-        $cart_result = $check_cart->get_result();
-
-        if ($cart_result->num_rows > 0) {
-            // Update quantity if car already in cart
-            $update_stmt = $conn->prepare("UPDATE cart SET quantity = quantity + 1 WHERE user_id = ? AND car_id = ?");
-            $update_stmt->bind_param("ii", $user_id, $car_id);
-            $update_stmt->execute();
-        } else {
-            // Add new item to cart
-            $insert_stmt = $conn->prepare("INSERT INTO cart (user_id, car_id, quantity) VALUES (?, ?, 1)");
-            $insert_stmt->bind_param("ii", $user_id, $car_id);
-            $insert_stmt->execute();
-        }
-
-        echo json_encode(['status' => 'success', 'message' => 'Car added to cart successfully.']);
+    if ($car['quantity'] <= 0) {
+        echo json_encode(['status' => 'error', 'message' => 'Car is out of stock']);
         exit();
+    }
 
-    } catch (Exception $e) {
-        error_log("Error: " . $e->getMessage());
-        echo json_encode(['status' => 'error', 'message' => 'An error occurred.']);
-        exit();
+    // Add to cart
+    $stmt = $conn->prepare("INSERT INTO cart (user_id, car_id, quantity) VALUES (?, ?, 1) ON DUPLICATE KEY UPDATE quantity = quantity + 1");
+    $stmt->bind_param("ii", $user_id, $car_id);
+    if ($stmt->execute()) {
+        // Update stock
+        $stmt = $conn->prepare("UPDATE cars SET quantity = quantity - 1 WHERE id = ?");
+        $stmt->bind_param("i", $car_id);
+        $stmt->execute();
+
+        // Get new stock
+        $stmt = $conn->prepare("SELECT quantity FROM cars WHERE id = ?");
+        $stmt->bind_param("i", $car_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $updated_car = $result->fetch_assoc();
+        $new_stock = $updated_car['quantity'];
+
+        echo json_encode(['status' => 'success', 'car_id' => $car_id, 'new_stock' => $new_stock]);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Failed to add to cart']);
     }
 }
 ?>

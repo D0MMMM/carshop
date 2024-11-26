@@ -11,7 +11,7 @@ $user_id = $_SESSION['user_id'];
 
 // Fetch order history for the user
 $order_stmt = $conn->prepare("
-    SELECT o.order_id, o.total_amount, o.order_status, o.payment_status, o.created_at
+    SELECT o.order_id, o.total_amount, o.order_status, o.payment_status, o.payment_method, o.created_at, DATE_ADD(o.created_at, INTERVAL 14 DAY) AS delivery_date
     FROM orders o
     WHERE o.user_id = ?
     ORDER BY o.created_at DESC
@@ -38,11 +38,12 @@ $order_result = $order_stmt->get_result();
 
     <main>
         <div class="order-history-container">
-            <h2>Your Order History</h2>
+            <h2>Order History</h2>
             <div class="filter-container">
                 <label for="filter-status">Filter by Status:</label>
                 <select id="filter-status">
                     <option value="all">All</option>
+                    <option value="pending">Pending</option>
                     <option value="processing">Processing</option>
                     <option value="shipped">Shipped</option>
                     <option value="delivered">Delivered</option>
@@ -62,7 +63,9 @@ $order_result = $order_stmt->get_result();
                             <th>Total Amount</th>
                             <th>Order Status</th>
                             <th>Payment Status</th>
+                            <th>Payment Method</th>
                             <th>Order Date</th>
+                            <th>Delivery Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,7 +75,9 @@ $order_result = $order_stmt->get_result();
                                 <td>₱<?= number_format($order['total_amount'], 2) ?></td>
                                 <td><?= htmlspecialchars($order['order_status']) ?></td>
                                 <td><?= htmlspecialchars($order['payment_status']) ?></td>
+                                <td><?= htmlspecialchars($order['payment_method']) ?></td>
                                 <td><?= htmlspecialchars($order['created_at']) ?></td>
+                                <td><?= htmlspecialchars($order['delivery_date']) ?></td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>

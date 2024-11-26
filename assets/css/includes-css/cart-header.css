@@ -30,14 +30,20 @@ header a svg{
     fill: #fff;
 }
 header.sticky{
-    background-color: rgba(0,0,0,0.7);
+    background-color:#ffffff;
     padding: 15px 100px;
 }
+header.sticky a svg{
+    fill: #000;
+}
+header.sticky .logo{
+    color: #000;
+}
 header.sticky .dropdown{
-    columns: #fff;
+    columns: #000000;
 }
 header.sticky .dropbtn{
-    color: #fff;
+    color: #000;
 }
 header .logo{
     color: #fff;

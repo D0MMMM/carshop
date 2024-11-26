@@ -21,59 +21,7 @@ if(isset($_SESSION['username'])){
 <body>
     <?php include "../user-includes/header.php"?>
     <!-- <section class="img-slider"> -->
-    <div class="slider">
-        <div class="list">
-            <div class="item active">
-                <img src="../assets/img/first.jpg" alt="">
-                <div class="content">
-                    <p>Let's go places.</p>
-                    <h2>TOYOTA</h2>
-                    <p>The wheels that keep me moving forward. Cruising in my Toyota, feeling unstoppable. </p>
-                </div>
-            </div>
-            <div class="item">
-                <img src="../assets/img/second.jpg" alt="">
-                <div class="content">
-                    <p>The Power of Dreams.</p>
-                    <h2>HONDA</h2>
-                    <p>You know Honda makes products to move you.
-                    Now Honda can help you protect them too.</p>
-                </div>
-            </div>
-            <div class="item">
-                <img src="../assets/img/third.jpg" alt="">
-                <div class="content">
-                    <p>Drive your ambition.</p>
-                    <h2>MITSUBISHI</h2>
-                    <p>Experience the road with unmatched strength. A dominating presence that commands attention</p>
-                </div>
-            </div>
-        </div>
-        <div class="arrows">
-            <button id="prev"><</button>
-            <button id="next">></button>
-        </div>
-        <div class="thumbnail">
-            <div class="item active">
-                <img src="../assets/img/first.jpg">
-                <div class="content">
-                    Supra MK4
-                </div>
-            </div>
-            <div class="item">
-                <img src="../assets/img/second.jpg">
-                <div class="content">
-                    Civic TypeR
-                </div>
-            </div>
-            <div class="item">
-                <img src="../assets/img/third.jpg">
-                <div class="content">
-                    Lancer
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php include '../includes/slider.php';?>
     <!-- </section> -->
      <div class="brand-choices">
         <a href="dashboard.php">TOYOTA</a>
@@ -91,10 +39,11 @@ if(isset($_SESSION['username'])){
             if(mysqli_num_rows($select_car) > 0){
                 while($fetch_car = mysqli_fetch_assoc($select_car)){
             ?>
-            <div class="toyota-container" data-car-name="<?= htmlspecialchars($fetch_car['model']) ?>">
-                <img style="height:15rem; width:23rem" src="../admin/asset/uploaded_img/<?php echo $fetch_car['image_path']; ?>" alt="">
-                <h3><?php echo $fetch_car['model']; ?></h3>
-                <div class="price">₱<?php echo number_format($fetch_car['price'], 2); ?></div>
+            <div class="toyota-container" data-car-id="<?= $fetch_car['id'] ?>" data-car-name="<?= htmlspecialchars($fetch_car['model']) ?>">
+                <img style="height:15rem; width:23rem" src="../admin/asset/uploaded_img/<?php echo htmlspecialchars($fetch_car['image_path']); ?>" alt="<?= htmlspecialchars($fetch_car['model']) ?>">
+                <h3><?= htmlspecialchars($fetch_car['model']); ?></h3>
+                <div class="price">₱<?= number_format($fetch_car['price'], 2); ?></div>
+                <div class="quantity" id="stock-<?= $fetch_car['id'] ?>">Stock: <?= intval($fetch_car['quantity']); ?></div>
                 <button class="view-btn" id="view-detail" data-car='<?php 
                     echo htmlspecialchars(json_encode([
                         'car_id' => $fetch_car['id'],
@@ -106,7 +55,9 @@ if(isset($_SESSION['username'])){
                         'description' => $fetch_car['description'],
                         'image_path' => $fetch_car['image_path']
                     ])); 
-                ?>'>VIEW DETAILS</button>
+                ?>' <?= intval($fetch_car['quantity']) === 0 ? 'disabled' : ''; ?>>
+                    <?= intval($fetch_car['quantity']) === 0 ? 'OUT OF STOCK' : 'VIEW DETAILS'; ?>
+                </button>
             </div>
             <?php
                 };

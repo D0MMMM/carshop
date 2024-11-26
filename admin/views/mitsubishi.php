@@ -59,7 +59,7 @@ if(isset($_POST['add_car'])){
     <?php include "../include/sidebar.php"?>
     <main>
         <div class="toyota-container">
-            <span style="margin-right: 1em; font-size: 1.2em"><i class="fa-solid fa-bars"></i></span> <span style="color: red;">MITSUBISHI</span>
+            <span style=" font-size: 1.2em"><i class="fa-solid fa-bars"></i></span> <span style="color: red;">MITSUBISHI</span>
             <span style="float: right;">DASHBOARD</span>
         </div>
 
@@ -133,6 +133,7 @@ if(isset($_POST['add_car'])){
     $(document).ready( function () {
         $('#mitsubishi-table').DataTable({
             "scrollY": "320px",
+            "pageLength": 5,
             "scrollCollapse": true,
             "paging": true,
         });

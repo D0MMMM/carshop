@@ -4,3 +4,6 @@ paypal:
 
 paymongo:
   secret_key: "sk_test_b7wawZpk8dgndbxbCdbmm367"
+
+city:
+  API_key: "Y0p4dTFhclZQQUNRcVJabHdVbFJaMGxVMHJDUUE1T2kxbGJXU1FlaA=="

@@ -16,7 +16,7 @@
             </p>
         </div>
         <div class="add-to-cart-btn">
-            <form action="../backend/add_to_cart.php" method="POST">
+            <form id="add-to-cart-form">
                 <input type="hidden" name="car_id" id="carIdInput">
                 <button type="submit" class="add-to-cart-btn">
                     Add to Cart <i class="fa-solid fa-cart-shopping"></i>
@@ -26,32 +26,39 @@
     </div>
 </div>
 
-<script>
-function openModal(carData) {
-    const modal = document.getElementById('carModal');
-    const carIdInput = document.getElementById('carIdInput');
-    
-    // Debug
-    console.log('Car Data:', carData);
-    
-    // Populate modal fields
-    document.getElementById('carImage').src = `../admin/asset/uploaded_img/${carData.image_path}`;
-    document.getElementById('carMake').textContent = carData.make;
-    document.getElementById('carModel').textContent = carData.model;
-    document.getElementById('carYear').textContent = carData.year;
-    document.getElementById('carPrice').textContent = `₱${parseFloat(carData.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    document.getElementById('carCondition').textContent = carData.car_condition;
-    document.getElementById('carDescription').textContent = carData.description;
-    
-    // Set the car_id
-    carIdInput.value = carData.car_id;
-    console.log('Setting car ID:', carData.car_id);
-    
-    modal.style.display = 'block';
-}
+<!-- <div id="car-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form id="add-to-cart-form">
+            <input type="hidden" name="car_id" id="modal-car-id">
+            <button type="submit">Add to Cart</button>
+        </form>
+    </div>
+</div> -->
 
-// Close modal functionality
-document.getElementById('closeModal').addEventListener('click', function() {
-    document.getElementById('carModal').style.display = 'none';
-});
+<script>
+// function openModal(carData) {
+//     const modal = document.getElementById('carModal');
+//     const carIdInput = document.getElementById('carIdInput');
+    
+//     // Debug
+//     console.log('Car Data:', carData);
+    
+//     document.getElementById('carImage').src = `../admin/asset/uploaded_img/${carData.image_path}`;
+//     document.getElementById('carMake').textContent = carData.make;
+//     document.getElementById('carModel').textContent = carData.model;
+//     document.getElementById('carYear').textContent = carData.year;
+//     document.getElementById('carPrice').textContent = `₱${parseFloat(carData.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+//     document.getElementById('carCondition').textContent = carData.car_condition;
+//     document.getElementById('carDescription').textContent = carData.description;
+
+//     carIdInput.value = carData.car_id;
+//     console.log('Setting car ID:', carData.car_id);
+    
+//     modal.style.display = 'block';
+// }
+
+// document.getElementById('closeModal').addEventListener('click', function() {
+//     document.getElementById('carModal').style.display = 'none';
+// });
 </script>

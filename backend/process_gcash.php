@@ -136,7 +136,7 @@ function createGcashPayment($userId, $amount, $secretKey) {
             'attributes' => [
                 'payment_method' => $paymentMethodId,
                 'client_key' => $clientKey,
-                'return_url' => 'https://localhost/final-project/backend/verify_gcash_payment.php' // Update this URL
+                'return_url' => 'http://localhost/final-project/backend/verify_gcash_payment.php' // Update this URL
             ]
         ]
     ];
