@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
 
 * {
     margin: 0;
@@ -23,7 +23,7 @@ main {
 
 .cart-container {
     max-width: 1200px;
-    margin:6em auto;
+    margin: 6em auto;
     padding: 1rem;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -70,7 +70,6 @@ table td img {
     color: #000000;
     border: 1px solid #ccc;
     padding: 0.5rem 1rem;
-    /* border-radius: 4px; */
     cursor: pointer;
     margin: 0 0.5rem;
     font-weight: 700;
@@ -79,7 +78,6 @@ table td img {
 
 .quantity-btn:hover {
     opacity: 0.7;
-    
 }
 
 .quantity {
@@ -92,7 +90,6 @@ table td img {
     color: white;
     border: none;
     padding: 0.5rem 1rem;
-    /* border-radius: 4px; */
     font-weight: 500;
     text-transform: uppercase;
     cursor: pointer;
@@ -121,7 +118,6 @@ table td img {
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
-    /* border-radius: 4px; */
     cursor: pointer;
     font-size: 1rem;
     font-weight: 500;
@@ -138,4 +134,77 @@ table td img {
     color: #666;
     font-size: 1.2rem;
     margin: 2rem 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .cart-container {
+        width: 95%;
+        padding: 0.5em;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody tr {
+        margin-bottom: 1em;
+        border-bottom: none;
+    }
+
+    tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5em 0;
+    }
+
+    tbody td:before {
+        content: attr(data-label);
+        font-weight: bold;
+    }
+
+    tbody img {
+        width: 80px;
+    }
+
+    .quantity-container {
+        justify-content: space-between;
+    }
+
+    .total-payment, .checkout-btn-container {
+        text-align: center;
+    }
+
+    .checkout-btn {
+        width: 100%;
+        margin-top: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-container {
+        width: 100%;
+        padding: 0.5em;
+    }
+
+    tbody img {
+        width: 60px;
+    }
+
+    .quantity-container {
+        flex-direction: column;
+    }
+
+    .quantity-btn {
+        margin: 0.2em 0;
+    }
+
+    .checkout-btn {
+        width: 100%;
+        margin-top: 1em;
+    }
 }

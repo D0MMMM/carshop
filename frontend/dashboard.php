@@ -20,9 +20,7 @@ if(isset($_SESSION['username'])){
 </head>
 <body>
     <?php include "../user-includes/header.php"?>
-    <!-- <section class="img-slider"> -->
     <?php include '../includes/slider.php';?>
-    <!-- </section> -->
      <div class="brand-choices">
         <a href="dashboard.php">TOYOTA</a>
         <a href="honda-dashboard.php">HONDA</a>

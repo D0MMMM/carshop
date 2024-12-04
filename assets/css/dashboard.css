@@ -23,9 +23,8 @@ header{
     z-index: 100;
     transition: 0.6s;
     text-transform: uppercase;
-    background: transparent;
-    /* border-bottom: 1px solid #fff; */
-}
+    background-color: transparent;
+} 
 header a{
     color: #fff;
     font-weight: 700;
@@ -272,10 +271,12 @@ section::before{
     z-index: 1000;
 }
 .toyota .toyota-section{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(3, 1fr)); */
     gap: 1.5rem;
-    justify-content: center;
+    /* justify-content: center; */
 }
 .toyota-container{
     border: 1px solid #ccc;
@@ -335,6 +336,10 @@ section::before{
     margin: 0;
     text-transform: uppercase;
 }
+/* .modal img{
+    object-fit: cover;
+    border-radius: 5px;
+} */
 .close {
     background: none;
     border: none;
@@ -413,13 +418,71 @@ section::before{
         padding: 50px 20px;
     }
     .toyota .toyota-section {
-        grid-template-columns: 1fr;
+        margin-top: 2em;
+        justify-content: center;
     }
     .toyota-container img {
-        height: 10rem;
-        width: 15rem;
+        width: 75px;
+        height: 75px;
+    }
+    .toyota-container{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     .modal-content {
         width: 90%;
+        margin: none;
+    }
+    .search-container i {
+        right: -2.5%;
+    }
+    .modal-content{
+        margin-top: 20em;
+    }
+}
+@media (max-width: 480px) {
+    .search-container input {
+        width: 95%;
+    }
+
+    .search-container i {
+        right: -2.5%;
+    }
+
+    .toyota-container {
+        width: 90%;
+    }
+    .modal {
+        position: absolute;
+    }
+    .modal-content {
+        width: 100%;
+        padding: 0.5em;
+        margin: none;
+    }
+
+    .modal-header h2 {
+        font-size: 1em;
+    }
+
+    .close {
+        font-size: 1em;
+    }
+    #modalDetails img {
+        padding-left: -10em;
+    }
+
+    #modalDetails strong {
+        width: 70px;
+    }
+    .slider {
+        height: 750px;
+    }
+
+    .slider .navigation button {
+        padding: 0.5em;
     }
 }

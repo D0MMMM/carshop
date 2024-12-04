@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const row = document.querySelector(`tr[data-cart-id="${cartId}"]`);
                 const quantityElement = row.querySelector('.quantity');
                 const itemTotalElement = row.querySelector('.item-total');
-                const price = parseFloat(row.querySelector('.price').textContent.replace('₱', '').replace(',', ''));
+                const price = parseFloat(row.querySelector('.price').textContent.replace('₱', '').replace(/,/g, ''));
                 const plusButton = row.querySelector('.plus-btn');
                 const minusButton = row.querySelector('.minus-btn');
 

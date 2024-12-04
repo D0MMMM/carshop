@@ -1,11 +1,12 @@
 <?php
+session_start();
 include "../config/db.php";
 include "../backend/orders.php";
 
-// if(!isset($_SESSION['admin'])) {
-//     header('Location: ../login.php');
-//     exit();
-// }
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +16,7 @@ include "../backend/orders.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../asset/style.css">
     <link rel="stylesheet" href="../asset/view-css/orders.css">
+     <!-- <link rel="stylesheet" href="../asset/view-css/modal-style.css"> -->
     <link rel="stylesheet" href="../lib/datatable/DataTables.css" defer>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/bad2460ef5.js" crossorigin="anonymous"></script>
@@ -111,7 +113,7 @@ include "../backend/orders.php";
     <!-- Modal -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <!-- <span class="close">&times;</span> -->
             <div id="orderDetails"></div>
         </div>
     </div>

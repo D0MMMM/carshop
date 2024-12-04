@@ -40,7 +40,10 @@ if(isset($_POST['add_car'])){
         </script>";
     }
 };
-
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

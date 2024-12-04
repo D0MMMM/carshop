@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+/* html{
+  font-family: Poppins, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5rem;
+} */
 .orders-container {
     padding: 2rem;
 }
@@ -9,7 +19,6 @@
     padding-right: 2.5em;
     padding-top: 1em;
     padding-bottom: 1em;
-    /* margin-bottom: 2.5em; */
 }
 .modal {
     display: none;
@@ -21,7 +30,6 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
-    /* animation: slideInFromBottom 0.5s ease-out forwards; */
 }
 .modal h2{
     text-align: center;
@@ -41,7 +49,6 @@
     animation: slideInFromBottom 0.3s ease-out forwards;
 }
 #orderDetails{
-    /* margin-left: 1em; */
     text-align: center;
 }
 .order-item span{
@@ -58,8 +65,8 @@
         transform: translateY(0);
     }
 }
-
-.close {
+/* /*  */
+/* .close {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -71,36 +78,28 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
+} */
 .filter-section {
-    /* margin-bottom: 2rem; */
     position: relative;
-}
-label {
-    font-size: 14px;
-    font-weight: 600;
 }
 #statusFilter {
     padding: 0.3rem;
-    /* border-radius: 4px; */
     border: 1px solid #ddd;
     font-size: 13px;
-}
+ }
 .status-select {
     padding: 0.2rem;
-    /* border-radius: 4px; */
     border: 1px solid #ddd;
     width: 75%;
 }
 .view-btn {
     margin-left: .3em;
-    /* margin-bottom: .5em; */
     background: none;
     border: none;
     color: #e32636;
     cursor: pointer;
     font-size: 16px;
-    
+
 }
 .view-btn:hover {
     color: #c21d2a;

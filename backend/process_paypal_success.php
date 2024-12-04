@@ -2,6 +2,7 @@
 session_start();
 include '../config/db.php';
 require '../vendor/autoload.php';
+require 'send_order_email.php'; // Include the email sending script
 
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
@@ -164,6 +165,11 @@ try {
             // Commit transaction
             $conn->commit();
 
+            // Send order confirmation email
+            if (!sendOrderEmail($order_id, $_SESSION['contact_name'], $_SESSION['contact_email'], 'PayPal', $total_amount)) {
+                throw new Exception("Failed to send order confirmation email.");
+            }
+
             // Clear PayPal session data
             unset($_SESSION['paypal_order_id']);
 
@@ -184,3 +190,4 @@ try {
         window.location.href = '../frontend/cart.php';
     </script>";
 }
+?>

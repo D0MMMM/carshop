@@ -1,8 +1,9 @@
 $(document).ready(function() {
     const ordersTable = $('#orders-table').DataTable({
         "order": [[6, "desc"]], // Sort by date descending
-        "pageLength": 4,
-        "lengthChange": false,
+        // "pageLength": 4,
+        // "lengthChange": false,
+        "paging" : false
     });
 
     // Status filter

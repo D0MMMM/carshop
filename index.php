@@ -10,64 +10,47 @@ include "config/db.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/font-awesome/css/all.css">
-    <script src="https://kit.fontawesome.com/bad2460ef5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Landing Page nigga</title>
+    <link rel="icon" href="assets/img/icon.png">
+    <title>Car Marketplace</title>
 </head>
 <body>
     <?php include "includes/header.php"?>
     <section class="home" id="home">
-    <div>
-        <img src="assets/img/landing-page.png">
-    </div>
-    <div class="container">
-        <span>
-            <h1>Trusted car marketplace</h1>
-            <br>
-        </span>
-        <span>
-            <p>Lorem ipsum dolor sit amet consectetur 
-                <br>adipisicing elit. Illum voluptatem nobis officia. <br>
-                In a accusamus pariatur consequuntur natus!<br>
-            </p>
-        </span>
-            <a href="frontend/login.php" target="_blank"><button id="get-started-btn">Get Started</button></a>
-        <span>
-            <a href="frontend/register.php" target="_blank"><button id="sign-up-btn">Sign Up</button></a>
-        </span>
-    </div>
+        <div class="home-image">
+            <img src="assets/img/landing-page.png" alt="Landing Page">
+        </div>
+        <div class="container">
+            <h1>Trusted Car Marketplace</h1>
+            <p>Lorem ipsum dolor sit amet consectetur <br>adipisicing elit. Illum voluptatem nobis officia. <br>In a accusamus pariatur consequuntur natus!</p>
+            <div class="button-group">
+                <a href="frontend/login.php" target="_blank"><button id="get-started-btn">Get Started</button></a>
+                <a href="frontend/register.php" target="_blank"><button id="sign-up-btn">Sign Up</button></a>
+            </div>
+        </div>
     </section>
     <section class="about" id="about" style="background-image: url(assets/img/supra.gif); background-position: center;
     background-size: cover;
     background-repeat: no-repeat;">
-        <div>
-            <h1><span style="color: red;">Hi</span>, Welcome to Car Marketplace</h1>
-            <h2 id="about">
-                <span style="color: red; text-decoration: underline; font-size:2em;">ABOUT</span>
-                <span style="font-size: 2em; margin-left: 10px;">US</span>
-            </h2>
+        <div class="about-content">
+            <h1><span class="highlight">Hi</span>, Welcome to Car Marketplace</h1>
+            <h2><span class="underline">ABOUT</span> US</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             <div class="car-brand">
-                <img src="assets/img/toyota-logo.png">
-                <img src="assets/img/honda-logo.png">
-                <img src="assets/img/mitsubishi-logo.png">
+                <img src="assets/img/toyota-logo.png" alt="Toyota Logo">
+                <img src="assets/img/honda-logo.png" alt="Honda Logo">
+                <img src="assets/img/mitsubishi-logo.png" alt="Mitsubishi Logo">
             </div>
             <div class="brand-name">
-                <div>
-                    <h2>TOYOTA</h2>
-                </div>
-                <div>
-                    <h2>HONDA</h2>
-                </div>
-                <div>
-                    <h2>MITSUBISHI</h2>
-                </div>
+                <div><h2>TOYOTA</h2></div>
+                <div><h2>HONDA</h2></div>
+                <div><h2>MITSUBISHI</h2></div>
             </div>
         </div>
     </section>
     <section class="contact" id="contact">
         <div class="contact-container">
-            <h1><span style="color: red;">Contact</span> Us</h1>
+            <h1><span class="highlight">Contact</span> Us</h1>
             <br><br>
             <p>Need to get in touch with us? Fill out the form and submit your details.</p>
             <p>We will get back to you as soon as possible.</p>
@@ -106,6 +89,16 @@ include "config/db.php";
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
 
+            // Show SweetAlert loader
+            Swal.fire({
+                title: 'Submitting...',
+                text: 'Please wait while we process your request.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
             // Collect form data
             const formData = new FormData(this);
 
@@ -114,18 +107,32 @@ include "config/db.php";
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text()) // Handle response as text
+            .then(response => response.json()) // Handle response as JSON
             .then(result => {
-                // Display success alert
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Message sent successfully!',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-                document.getElementById('contact-form').reset();
+                Swal.close(); // Close the loader
+
+                if (result.status === 'success') {
+                    // Display success alert
+                    Swal.fire({
+                        title: 'Success!',
+                        text: result.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                    document.getElementById('contact-form').reset();
+                } else {
+                    // Display error alert
+                    Swal.fire({
+                        title: 'Error!',
+                        text: result.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
             })
             .catch(error => {
+                Swal.close(); // Close the loader
+
                 // Display error alert
                 Swal.fire({
                     title: 'Error!',
@@ -136,7 +143,6 @@ include "config/db.php";
             });
         });
     </script>
-
 
     <script>
         let section = document.querySelectorAll('section');

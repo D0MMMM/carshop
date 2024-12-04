@@ -108,5 +108,43 @@ body{
 svg{
     position: absolute;
     bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
     z-index: -100;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        margin-top: 5em;
+        padding: 0 1em;
+    }
+
+    .input-container input {
+        padding: 10px 35px 10px 35px;
+    }
+
+    .input-container .fa-eye,
+    .input-container .fa-eye-slash {
+        left: auto;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin-top: 3em;
+        padding: 0 0.5em;
+    }
+
+    .input-container input {
+        padding: 10px 30px 10px 30px;
+    }
+
+    .input-container .fa-eye,
+    .input-container .fa-eye-slash {
+        font-size: 16px;
+    }
+
 }

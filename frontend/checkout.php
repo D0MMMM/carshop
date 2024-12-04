@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../config/db.php';
+require '../backend/send_order_email.php'; // Include the email sending script
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../frontend/login.php');
@@ -74,6 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Commit transaction
         $conn->commit();
 
+        // Send order confirmation email
+        if (!sendOrderEmail($order_id, $contact_name, $contact_email, $payment_method, $total_amount)) {
+            throw new Exception("Failed to send order confirmation email.");
+        }
+
         echo json_encode([
             'status' => 'success',
             'message' => 'Order placed successfully'
@@ -96,7 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/checkout.css">
-    <!-- <link rel="stylesheet" href="../assets/css/dashboard.css"> -->
     <link rel="stylesheet" href="../font-awesome/css/all.css">
     <link rel="stylesheet" href="../assets/css/includes-css/cart-header.css">
     <link rel="stylesheet" href="../assets/css/includes-css/cart-footer.css">
