@@ -9,6 +9,7 @@
         <div class="dropdown">
             <button class="dropbtn"><i class="fa-regular fa-user"></i> Hi, <?php echo htmlspecialchars($_SESSION['username']); ?> <i class="fa fa-caret-down"></i></button>
             <div class="dropdown-content">
+                <a href="../frontend/account_info.php"><i class="fa-solid fa-user"></i><span> My Account</span></a>
                 <a href="../frontend/order_history.php"><i class="fa-solid fa-paper-plane"></i><span> Order History</span></a>
                 <a href="#" id="logout"><i class="fa-solid fa-power-off"></i> Sign Out</a>
             </div>

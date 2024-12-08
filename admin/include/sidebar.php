@@ -45,10 +45,38 @@
         </a>
       </li>
       <li class="logout">
-        <a href="../logout.php">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+        <a href="#" id="logout-link">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/>
+            </svg>
             <span>Logout</span>
         </a>
       </li>
     </ul>
-  </nav>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.getElementById('logout-link').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    Swal.fire({
+      title: 'Want to end session?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Logout',
+      cancelButtonText: 'Cancel',
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            window.location.href = '../logout.php';
+            resolve();
+          }, 2000);
+        });
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    });
+  });
+</script>

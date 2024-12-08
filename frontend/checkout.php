@@ -179,13 +179,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     PayPal
                                 </label>
                             </div>
-                            <div class="payment-option">
+                            <!-- <div class="payment-option">
                                 <input type="radio" id="gcash" name="payment_method" value="gcash">
                                 <label for="gcash">
                                     <i class="fas fa-wallet"></i>
                                     GCash
                                 </label>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 

@@ -1,39 +1,11 @@
 <?php 
 session_start();
 include "../config/db.php";
+include "../backend/revenue.php";
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
   header("Location: ../index.php");
   exit();
-}
-?>
-
-<?php
-// Fetch total revenue for today
-$today_revenue_query = "SELECT SUM(total_amount) AS today_revenue FROM orders WHERE payment_status = 'paid' AND DATE(created_at) = CURDATE()";
-$today_revenue_result = $conn->query($today_revenue_query);
-$today_revenue = $today_revenue_result->fetch_assoc()['today_revenue'];
-
-// Fetch total revenue for the current month
-$monthly_revenue_query = "SELECT SUM(total_amount) AS monthly_revenue FROM orders WHERE payment_status = 'paid' AND MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())";
-$monthly_revenue_result = $conn->query($monthly_revenue_query);
-$monthly_revenue = $monthly_revenue_result->fetch_assoc()['monthly_revenue'];
-
-// Fetch daily revenue for the current month for the line chart
-$daily_revenue_query = "
-    SELECT DATE(created_at) AS date, SUM(total_amount) AS daily_revenue 
-    FROM orders 
-    WHERE payment_status = 'paid' AND MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())
-    GROUP BY DATE(created_at)
-    ORDER BY DATE(created_at)
-";
-$daily_revenue_result = $conn->query($daily_revenue_query);
-
-$dates = [];
-$daily_revenues = [];
-while ($row = $daily_revenue_result->fetch_assoc()) {
-    $dates[] = $row['date'];
-    $daily_revenues[] = $row['daily_revenue'];
 }
 ?>
 
@@ -51,46 +23,79 @@ while ($row = $daily_revenue_result->fetch_assoc()) {
 <body>
   <?php include "../include/sidebar.php"?>
   <main class="p-6 md:p-10">
-    <h1 class="text-3xl font-bold mb-3"><i class="fa-solid fa-chart-simple"></i> REVENUE DASHBOARD</h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-3xl text-red-600 font-bold mb-3"><i class="fa-solid fa-chart-simple"></i> REVENUE DASHBOARD</h1>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-green-300 p-6 rounded-lg shadow-md">
         <h2 class="text-xl font-bold">TODAY'S REVENUE <i class="fa-solid fa-chart-line"></i></h2>
         <p class="text-3xl mt-4">₱<?= number_format($today_revenue, 2) ?></p>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow-md">
+      <div class="bg-yellow-300 p-6 rounded-lg shadow-md">
         <h2 class="text-xl font-bold">MONTHLY REVENUE <i class="fa fa-bar-chart"></i></h2>
         <p class="text-3xl mt-4">₱<?= number_format($monthly_revenue, 2) ?></p>
       </div>
+      <div class="bg-blue-300 p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-bold">TOTAL REVENUE <i class="fa fa-bar-chart"></i></h2>
+        <p class="text-3xl mt-4">₱<?= number_format($total_revenue, 2) ?></p>
+      </div>
     </div>
-    <div class="mt-10 bg-white p-6 rounded-lg shadow-md">
-      <div class="mt-10 flex justify-start overflow-hidden">
-        <div class="w-full md:w-2/3 lg:w-1/2">
-          <canvas id="revenueChart"></canvas>
+    <div class="mt-10 bg-indigo-300 p-6 rounded-lg shadow-md w-full">
+      <h2 class="text-xl flex justify-center font-bold mb-4">REVENUE PIE CHART</h2>
+      <div class="mt-10 flex justify-center overflow-hidden">
+        <div class="w-full h-96">
+          <canvas id="revenuePieChart"></canvas>
         </div>
       </div>
     </div>
   </main>
   <script src="../asset/app.js"></script>
   <script>
-    // Chart.js script to create a line chart
-    const ctx = document.getElementById('revenueChart').getContext('2d');
-    const revenueChart = new Chart(ctx, {
-      type: 'line',
+    const ctx = document.getElementById('revenuePieChart').getContext('2d');
+    const revenuePieChart = new Chart(ctx, {
+      type: 'pie',
       data: {
         labels: <?= json_encode($dates) ?>,
         datasets: [{
-          label: 'Daily Revenue',
           data: <?= json_encode($daily_revenues) ?>,
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1,
-          fill: true
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.5)', 
+            'rgba(75, 192, 192, 0.5)',
+            'rgba(255, 206, 86, 0.5)', 
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+            'rgba(75, 192, 192, 0.5)',
+            'rgba(153, 102, 255, 0.5)',
+            'rgba(255, 159, 64, 0.5)',
+            'rgba(201, 203, 207, 0.5)'
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)', 
+            'rgba(75, 192, 192, 1)',
+            'rgba(255, 206, 86, 1)', 
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)'
+          ],
+          borderWidth: 2
         }]
       },
       options: {
-        scales: {
-          y: {
-            beginAtZero: true
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return '₱ ' + tooltipItem.raw.toLocaleString();
+              }
+            }
           }
         }
       }

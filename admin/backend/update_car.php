@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php
-// session_start();
+session_start();
 include "../config/db.php";
 
 // if (!isset($_SESSION['user_id'])) {

@@ -13,7 +13,6 @@ include "../config/db.php";
     <title>Register an account</title>
 </head>
 <body>
-    <!-- <a class="back-button" href="../index.php"><i class="fa-solid fa-arrow-left"></i></a> -->
     <div class="container">
         <h1>Register an account <span style="color: red;">*</span></h1>
         <form id="register-form" action="../backend/register.php" method="post">
@@ -48,5 +47,37 @@ include "../config/db.php";
     </svg>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../assets/js/show_password.js"></script>
+    <script>
+        // Show SweetAlert based on URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('error')) {
+            const error = urlParams.get('error');
+            if (error === 'email_exists') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'This email already exists!'
+                });
+            } else if (error === 'password_mismatch') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Passwords do not match!'
+                });
+            } else if (error === 'register_failed') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Registration failed. Please try again.'
+                });
+            }
+        } else if (urlParams.has('Register') && urlParams.get('Register') === 'Success') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Registration successful! Please check your email to verify your account.'
+            });
+        }
+    </script>
 </body>
 </html>

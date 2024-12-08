@@ -56,7 +56,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
             </div>
             <div>
               <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-              <input type="email" name="email" id="email" class="p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="<?= htmlspecialchars($user['email']) ?>" required>
+              <input readonly type="email" name="email" id="email" class="p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="<?= htmlspecialchars($user['email']) ?>" required>
             </div>
             <div>
               <label for="contact_number" class="block text-sm font-medium text-gray-700">Contact Number</label>

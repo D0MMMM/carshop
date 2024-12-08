@@ -25,36 +25,44 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
 <body>
     <?php include "../include/sidebar.php"?>
   <main class="p-6 md:p-10">
-    <h1 class="text-3xl font-bold mb-3"><i class="fa-solid fa-bars"></i> ADMIN DASHBOARD</h1>
+    <h1 class="text-3xl text-red-600 font-bold mb-3"><i class="fa-solid fa-bars"></i> ADMIN DASHBOARD</h1>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div class="bg-red-400 p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-bold">TOTAL CARS <i class="fa-solid fa-car"></i></h2>
-        <p class="text-3xl mt-4"><i class="fa-solid fa-car"></i> <?= $total_cars ?></p>
-      </div>
-      <div class="bg-gray-400 p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-bold">TOTAL USERS <i class="fa-solid fa-user"></i></h2>
-        <p class="text-3xl mt-4"><i class="fa-regular fa-user"></i> <?= $total_users ?></p>
-      </div>
-      <div class="bg-blue-300 p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-bold">TOTAL REVENUE <i class="fa fa-bar-chart"></i></h2>
-        <p class="text-3xl mt-4">₱ <?= number_format($total_revenue, 2) ?></p>
-      </div>
-      <div class="bg-yellow-300 p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-bold">TOTAL ORDERS <i class="fa-solid fa-shopping-cart"></i></h2>
-        <p class="text-3xl mt-4"><i class="fa-solid fa-shopping-cart"></i> <?= $total_orders ?></p>
-      </div>
+      <a href="../views/toyota.php" class="block">
+        <div class="bg-red-400 p-6 rounded-lg shadow-md">
+          <h2 class="text-xl font-bold">TOTAL CARS <i class="fa-solid fa-car"></i></h2>
+          <p class="text-3xl mt-4"><i class="fa-solid fa-car"></i> <?= $total_cars ?></p>
+        </div>
+      </a>
+      <a href="../views/profile.php" class="block">
+        <div class="bg-gray-400 p-6 rounded-lg shadow-md">
+          <h2 class="text-xl font-bold">TOTAL USERS <i class="fa-solid fa-user"></i></h2>
+          <p class="text-3xl mt-4"><i class="fa-regular fa-user"></i> <?= $total_users ?></p>
+        </div>
+      </a>
+      <a href="../views/order.php" class="block">
+        <div class="bg-yellow-300 p-6 rounded-lg shadow-md">
+          <h2 class="text-xl font-bold">TOTAL ORDERS <i class="fa-solid fa-shopping-cart"></i></h2>
+          <p class="text-3xl mt-4"><i class="fa-solid fa-shopping-cart"></i> <?= $total_orders ?></p>
+        </div>
+      </a>
+      <a href="../views/revenue.php" class="block">
+        <div class="bg-blue-300 p-6 rounded-lg shadow-md">
+          <h2 class="text-xl font-bold">TOTAL REVENUE <i class="fa fa-bar-chart"></i></h2>
+          <p class="text-3xl mt-4">₱<?= number_format($total_revenue, 2) ?></p>
+        </div>
+      </a>
     </div>
     <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="bg-white mb-0 p-6 rounded-lg shadow-md ">
-        <h2 class="text-xl font-bold mb-4">Monthly Revenue</h2>
-        <p class="text-lg"><strong>Total Sales:</strong> ₱ <?= number_format($total_sales, 2) ?></p>
-        <p class="text-lg"><strong>Average Order Value:</strong> ₱ <?= number_format($average_order_value, 2) ?></p>
+        <h2 class="text-xl font-bold mb-4">MONTHLY REVENUE</h2>
+        <p class="text-lg"><strong>Total Sales:</strong> ₱<?= number_format($total_sales, 2) ?></p>
+        <p class="text-lg"><strong>Average Order Value:</strong> ₱<?= number_format($average_order_value, 2) ?></p>
         <canvas id="revenueChart"></canvas>
       </div>
       <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-bold mb-4">Sales Analytics</h2>
-        <p class="text-lg"><strong>Total Sales:</strong> ₱ <?= number_format($total_sales, 2) ?></p>
-        <p class="text-lg"><strong>Average Order Value:</strong> ₱ <?= number_format($average_order_value, 2) ?></p>
+        <h2 class="text-xl font-bold mb-4">SALES ANALYTICS</h2>
+        <p class="text-lg"><strong>Total Sales:</strong> ₱<?= number_format($total_sales, 2) ?></p>
+        <p class="text-lg"><strong>Average Order Value:</strong> ₱<?= number_format($average_order_value, 2) ?></p>
         <canvas id="salesPieChart" class="mt-6"></canvas>
       </div>
     </div>
@@ -66,7 +74,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
   </main>
   <script src="../asset/app.js"></script>
   <script>
-    // Chart.js script to create a bar chart
     const ctx = document.getElementById('revenueChart').getContext('2d');
     const revenueChart = new Chart(ctx, {
       type: 'bar',

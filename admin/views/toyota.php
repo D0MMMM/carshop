@@ -62,7 +62,7 @@ if(isset($_GET['delete'])){
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
     header("Location: ../index.php");
     exit();
-  }
+}
 
 ?>
 <!DOCTYPE html>
@@ -73,7 +73,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
     <link rel="stylesheet" href="../asset/view-css/modal-style.css">
     <link rel="stylesheet" href="../asset/style.css">
     <link rel="stylesheet" href="../asset/view-css/car.css">
-    <link rel="stylesheet" href="../lib/datatable/DataTables.css" defer>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/bad2460ef5.js" crossorigin="anonymous"></script>
     <title>Document</title>
@@ -103,17 +102,23 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
         </div>
 
         <div class="display-car">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for cars.." title="Type in a name">
+                <i class="fa fa-search search-icon"></i>
+            </div>
             <table class="display" id="toyota-table" style="table-layout: fixed;">
                 <thead>
-                    <th style="text-align:start;">Image</th>
-                    <th style="text-align:start;">Brand</th>
-                    <th style="text-align:start;">Model</th>
-                    <th style="text-align:start;">Year</th>
-                    <th style="text-align:start;">Price</th>
-                    <th style="text-align:start;">Quantity</th>
-                    <th style="text-align:start;">Condition</th>
-                    <th style="text-align:start;">Description</th>
-                    <th style="text-align:start;">Actions</th>
+                    <tr>
+                        <th style="text-align:start;">Image</th>
+                        <th style="text-align:start;">Brand</th>
+                        <th style="text-align:start;">Model</th>
+                        <th style="text-align:start;">Year</th>
+                        <th style="text-align:start;">Price</th>
+                        <th style="text-align:start;">Quantity</th>
+                        <th style="text-align:start;">Condition</th>
+                        <th style="text-align:start;">Description</th>
+                        <th style="text-align:start;">Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <?php
@@ -130,7 +135,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
                         <td style="text-align:start;"><?php echo $row['quantity']; ?></td>
                         <td style="text-align:start;"><?php echo $row['car_condition']; ?></td>
                         <td style="text-align:start; word-wrap: break-word;"><?php echo $row['description']; ?></td>
-                        <td>
+                        <td class="actions">
                             <a href="javascript:void(0);" class="edit-btn" data-car='<?php echo json_encode($row); ?>'> <i class="fas fa-edit"></i></a>
                             <a href="toyota.php?delete=<?php echo $row['id']; ?>" class="delete-btn" name="delete" onclick="return confirm('Are you sure you want to delete the item?');"> <i class="fas fa-trash"></i> </a>
                         </td>
@@ -148,19 +153,9 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
     <!-- Edit Modal -->
     <?php include "../include/modal.php"; ?>
 
+    <script src="../asset/js/search.js"></script>
     <script src="../asset/app.js"></script>
-    <script src="../lib/datatable/DataTables.js" defer></script>
     <script src="../lib/jquery/jquery.min.js"></script>
-    <script>
-    $(document).ready( function () {
-        $('#toyota-table').DataTable({
-            "scrollY": "320px",
-            "pageLength": 5,
-            "scrollCollapse": true,
-            "paging": true,
-        });
-    } );
-    </script>
     <script>
         let dateDropdown = document.getElementById('date-dropdown'); 
         
