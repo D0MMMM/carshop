@@ -89,7 +89,6 @@ include "config/db.php";
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
 
-            // Show SweetAlert loader
             Swal.fire({
                 title: 'Submitting...',
                 text: 'Please wait while we process your request.',
@@ -99,20 +98,17 @@ include "config/db.php";
                 }
             });
 
-            // Collect form data
             const formData = new FormData(this);
 
-            // Send form data using fetch API
             fetch('backend/contactus.php', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json()) // Handle response as JSON
+            .then(response => response.json())
             .then(result => {
-                Swal.close(); // Close the loader
+                Swal.close();
 
                 if (result.status === 'success') {
-                    // Display success alert
                     Swal.fire({
                         title: 'Success!',
                         text: result.message,
@@ -121,7 +117,6 @@ include "config/db.php";
                     });
                     document.getElementById('contact-form').reset();
                 } else {
-                    // Display error alert
                     Swal.fire({
                         title: 'Error!',
                         text: result.message,
@@ -131,9 +126,8 @@ include "config/db.php";
                 }
             })
             .catch(error => {
-                Swal.close(); // Close the loader
+                Swal.close();
 
-                // Display error alert
                 Swal.fire({
                     title: 'Error!',
                     text: 'There was an issue sending your message. Please try again later.',

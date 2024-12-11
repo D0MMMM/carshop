@@ -31,7 +31,7 @@ include "../config/db.php";
             <p>Don't have an account? <a href="register.php">Register</a></p>
             <div class="process-link">
                 <p><a href="forgotpassword.php">Forgot password?</a></p>
-                <p><a href="verifyaccount.php">Verify your account</a></p>
+                <!-- <p><a href="verifyaccount.php">Verify your account</a></p> -->
             </div>
         </form>
     </div>

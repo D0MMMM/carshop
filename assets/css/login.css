@@ -95,11 +95,11 @@ p a:hover{
     transition: .2s;
     border-bottom: 1px solid green;
 }
-.process-link{
+/* .process-link{
     display: flex;
     gap: 2em;
     margin-left: 2.5em;
-}
+} */
 .process-link a{
     color: red;
     text-decoration: none;
@@ -124,7 +124,7 @@ svg{
 /* Responsive Styles */
 @media (max-width: 768px) {
     .container {
-        margin-top: 5em;
+        margin-top: 20em;
         padding: 0 1em;
     }
 
@@ -149,8 +149,9 @@ svg{
     }
 
     .back-button {
-        font-size: 1.2em;
+        font-size: 2em;
     }
+
 }
 
 @media (max-width: 480px) {

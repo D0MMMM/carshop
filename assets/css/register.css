@@ -117,7 +117,7 @@ svg{
 /* Responsive Styles */
 @media (max-width: 768px) {
     .container {
-        margin-top: 5em;
+        margin-top: 20em;
         padding: 0 1em;
     }
 

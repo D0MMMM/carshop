@@ -61,7 +61,7 @@ $order_result = $order_stmt->get_result();
                         <tr>
                             <th>Order ID</th>
                             <th>Total Amount</th>
-                            <th>Order Status</th>
+                            <th>Delivery Status</th>
                             <th>Payment Status</th>
                             <th>Payment Method</th>
                             <th>Order Date</th>
@@ -73,7 +73,7 @@ $order_result = $order_stmt->get_result();
                             <tr data-status="<?= htmlspecialchars($order['order_status']) ?>">
                                 <td><?= htmlspecialchars($order['order_id']) ?></td>
                                 <td>₱<?= number_format($order['total_amount'], 2) ?></td>
-                                <td><?= htmlspecialchars($order['order_status']) ?></td>
+                                <td class="order-status"><?= htmlspecialchars($order['order_status']) ?></td>
                                 <td><?= htmlspecialchars($order['payment_status']) ?></td>
                                 <td><?= htmlspecialchars($order['payment_method']) ?></td>
                                 <td><?= htmlspecialchars($order['created_at']) ?></td>
@@ -90,5 +90,26 @@ $order_result = $order_stmt->get_result();
 
     <?php include '../includes/footer.php' ?>
     <script src="../assets/js/order_history.js"></script>
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function fetchOrderStatus() {
+                $.ajax({
+                    url: '../backend/fetch_order_status.php',
+                    type: 'GET',
+                    success: function(response) {
+                        const orders = JSON.parse(response);
+                        orders.forEach(order => {
+                            const row = $(`tr[data-status="${order.order_id}"]`);
+                            row.find('.order-status').text(order.order_status);
+                        });
+                    }
+                });
+            }
+
+            // Fetch order status every 10 seconds
+            setInterval(fetchOrderStatus, 10000);
+        });
+    </script>
 </body>
 </html>

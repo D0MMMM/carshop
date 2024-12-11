@@ -96,3 +96,8 @@ svg {
 .swal2-popup {
     font-family: 'Poppins', sans-serif; /* Apply to the entire modal content */
 }
+@media(max-width: 768px) {
+    .back-button {
+        font-size: 2em;
+    }
+}
